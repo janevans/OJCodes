@@ -1,0 +1,11 @@
+#include<iostream>
+#include<stdlib>
+using namespace std;
+int main()
+{
+    //using long long to avoid overflow.
+    long long a,b;
+    while(cin>>a>>b)//could be used to detect EOF.
+        cout<<llabs(a-b)<<endl;  //llabs is used for abs of long long!
+    return 0;
+} 
