@@ -4,13 +4,13 @@ using namespace std;
 char** newMatrix(int m,int n)
 {
     char **matrix = new char*[m]();
-    for(int i=0;i<m;i++)
+    for(int i=0;i<m;i++) 
         matrix[i] = new char[n]();
     return matrix;
 }
 void deleteMatrix(char** matrix,int m,int n)
 {
-    for(int i=0;i<m;i++)
+    for(int i=0;i<m;i++)//for(int i=0;i<n;i++)
         delete[] matrix[i];  
     delete[] matrix;
 }
@@ -21,7 +21,7 @@ void fillMatrix(int m,int n,istream &is, char** matrix)
         for(int c=0;c<n;c++)
         {
             is>>ch;
-            matrix[r][c] = tolower(ch);
+            matrix[r][c] = tolower(ch); //forget the tolower(ch)
         }
 }
 bool checkWordByDirection(char** matrix, int r,int c, string &word, int rstep,int cstep)
@@ -33,7 +33,9 @@ bool checkWordByDirection(char** matrix, int r,int c, string &word, int rstep,in
     }
     return true;
 }
-
+/**
+ * Be careful about int conversion to unsigned!!!
+ */
 bool matchWord(char** matrix,int m,int n,string &word,int r,int c){
     return 
              (
@@ -71,7 +73,7 @@ void processQuery(int query,char** matrix,int m,int n,istream &in){
              int j=0;
              for(;j<n;j++){
                  if( matchWord(matrix,m,n,word,i,j) ){
-                      cout<<i+1<<" "<<j+1<<endl;
+                      cout<<i+1<<" "<<j+1<<endl; //cout<<i<<" "<<j<<endl;
                       break;
                  }
              }
