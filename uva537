@@ -1,0 +1,58 @@
+#include<iostream>
+#include<cstdio>
+#include<sstream>
+#include<iomanip>
+using namespace std;
+/**
+ * 1 Avoid using scanf, use getline() to get a line first, then use sscanf.
+ * 2 sscanf(line.c_str()+i+1,"%lf%c",&val,&unitPrefix); smart using sscanf.
+ */
+double getFactor(char c)
+{
+  switch(c){
+		case 'm': return 0.001;
+		case 'k': return 1000;
+		case 'M': return 1000000;
+	}
+	return 1;
+}
+void processLine(string &line)
+{
+    double I=-1,U=-1,P=-1;
+    for(size_t i=0;i<line.length();i++)
+    {
+        if(line[i] == '=')
+        {
+            double val;
+            char unitPrefix;
+            sscanf(line.c_str()+i+1,"%lf%c",&val,&unitPrefix);
+            switch(line[i-1])
+            {
+                case 'I' : I=val*getFactor(unitPrefix);break;
+                case 'U' : U=val*getFactor(unitPrefix);break;
+                case 'P' : P=val*getFactor(unitPrefix);break;
+            }
+        }
+    }
+    if(I==-1)
+        printf("I=%.2lfA\n",U==0?0:P/U);
+    else if(U==-1)
+        printf("U=%.2lfV\n",I==0?0:P/I);
+    else
+        printf("P=%.2lfW\n",U*I);
+}
+int main()
+{
+    string line;
+    getline(cin,line);
+    int num;
+    sscanf(line.c_str(),"%i",&num);
+    for(int i=0;i<num;i++)
+    {
+        getline(cin,line);
+        cout<<"Problem #"<<i+1<<endl;
+        processLine(line);
+        cout<<endl;
+    }
+    return 0;
+}
